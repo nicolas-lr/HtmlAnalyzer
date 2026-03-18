@@ -51,3 +51,13 @@ Robustez: O código trata falhas de rede e URLs malformadas, retornando mensagen
 5. Execute passando uma URL como argumento:
    ```bash
    java HtmlAnalyzer https://www.google.com
+
+
+### 📂 Meu Ecossistema de Projetos 
+Além deste analisador de HTML, desenvolvi um sistema de comunicação completa:
+
+[Mobile: Remote PC Controller (Android Nativo)](https://github.com/nicolas-lr/Mobile-App)
+
+[Backend Desktop: JustEnoughWires Server (.NET)](https://github.com/nicolas-lr/JustEnoughWires)
+
+O app mobile envia comandos via Sockets/HTTP para o servidor C#, permitindo o controle remoto do computador.
