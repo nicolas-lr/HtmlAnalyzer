@@ -15,9 +15,9 @@ Rede: HttpURLConnection com foco em segurança e resiliência.
 ## Como o Algoritmo Funciona
 A lógica central utiliza uma Pilha (Stack) para validar a simetria do HTML. O algoritmo percorre o código linha a linha:
 
-Tag de Abertura: Quando encontra uma tag como <div>, o nome da tag ("div") é empilhado.
+Tag de Abertura: Quando encontra uma tag como &lt;div&gt;, o nome da tag ("div") é empilhado.
 
-Tag de Fechamento: Quando encontra </div>, o algoritmo verifica se o topo da pilha corresponde a essa tag. Se sim, remove-a; se não, o HTML é marcado como malformed.
+Tag de Fechamento: Quando encontra &lt;/div&gt;, o algoritmo verifica se o topo da pilha corresponde a essa tag. Se sim, remove-a; se não, o HTML é marcado como malformed.
 
 Conteúdo de Texto: Se a linha não é uma tag, o algoritmo verifica a quantidade de elementos na pilha (o nível de profundidade atual). Se for maior que o recorde anterior, esse texto é armazenado como o "mais profundo".
 
@@ -61,5 +61,3 @@ Além deste analisador de HTML, desenvolvi um sistema de comunicação completa 
 [Backend Desktop: JustEnoughWires Server (.NET)](https://github.com/nicolas-lr/JustEnoughWires)
 
 [Solução IOT de monitoramento de variáveis ambientais (Temperatura, umidade e pressão)](https://github.com/nicolas-lr/WebServer-ESP32)
-
-
