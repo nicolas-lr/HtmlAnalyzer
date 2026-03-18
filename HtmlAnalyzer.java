@@ -58,40 +58,54 @@ public class HtmlAnalyzer {
         }
     }
 
-    private static String deepestTextFinder(String[] htmlArray) {
-        Pattern openingTag = Pattern.compile("^<([a-zA-Z0-9]+)>$");
-        Pattern closingTag = Pattern.compile("^</([a-zA-Z0-9]+)>$");
-        Stack<String> tagStack = new Stack<>();
+private static String deepestTextFinder(String[] htmlArray) {
+    Pattern tagPattern = Pattern.compile("<(/?[a-zA-Z0-9]+)[^>]*>");
+    Stack<String> tagStack = new Stack<>();
 
-        int deepestLevel = -1;
-        String deepestText = "";
+    int deepestLevel = -1;
+    String deepestText = "";
 
-        for (String tempLine : htmlArray) {
-            String htmlLine = tempLine.trim();
-            if (htmlLine.isEmpty()) continue;
+    for (String htmlLine : htmlArray) {
+        Matcher matcher = tagPattern.matcher(htmlLine);
+        int lastMatchEnd = 0;
 
-            Matcher matcherOpening = openingTag.matcher(htmlLine);
-            Matcher matcherEnding = closingTag.matcher(htmlLine);
-
-            if (matcherOpening.matches()) {
-                tagStack.push(matcherOpening.group(1));
-            } 
-            else if (matcherEnding.matches()) {
-                String closingTagName = matcherEnding.group(1);
-                
-                if (tagStack.isEmpty() || !tagStack.pop().equals(closingTagName)) {
-                    return "malformed HTML";
-                }
-            } 
-            else {
+        while (matcher.find()) {
+            String textBetween = htmlLine.substring(lastMatchEnd, matcher.start()).trim();
+            if (!textBetween.isEmpty() && !tagStack.isEmpty()) {
                 int currentLevel = tagStack.size();
                 if (currentLevel > deepestLevel) {
                     deepestLevel = currentLevel;
-                    deepestText = htmlLine;
+                    deepestText = textBetween;
+                }
+            }
+
+            String tagContent = matcher.group(1);
+            lastMatchEnd = matcher.end();
+
+            if (tagContent.startsWith("/")) {
+                String tagName = tagContent.substring(1);
+                if (tagStack.isEmpty() || !tagStack.pop().equals(tagName)) {
+                    return "malformed HTML";
+                }
+            } else {
+                if (!isVoidElement(tagContent)) {
+                    tagStack.push(tagContent);
                 }
             }
         }
+        
+        String trailingText = htmlLine.substring(lastMatchEnd).trim();
+        if (!trailingText.isEmpty() && !tagStack.isEmpty()) {
+             if (tagStack.size() > deepestLevel) {
+                deepestLevel = tagStack.size();
+                deepestText = trailingText;
+            }
+        }
+    }
 
-        return tagStack.isEmpty() ? deepestText : "malformed HTML";
+    return tagStack.isEmpty() ? deepestText : "malformed HTML";
+}
+        private static boolean isVoidElement(String tag) {
+        return List.of("meta", "link", "img", "br", "hr", "input").contains(tag.toLowerCase());
     }
 }
