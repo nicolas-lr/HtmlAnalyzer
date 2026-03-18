@@ -1,0 +1,9 @@
+[submodule "Mobile-App"]
+	path = Mobile-App
+	url = https://github.com/nicolas-lr/Mobile-App.git
+[submodule "JustEnoughWires"]
+	path = JustEnoughWires
+	url = https://github.com/nicolas-lr/JustEnoughWires.git
+[submodule "WebServer-ESP32"]
+	path = WebServer-ESP32
+	url = https://github.com/nicolas-lr/WebServer-ESP32.git
