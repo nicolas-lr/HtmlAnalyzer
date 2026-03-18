@@ -1,7 +1,7 @@
 # HTML Depth Analyzer
 Este projeto é uma ferramenta de linha de comando desenvolvida em Java que analisa a estrutura de um documento HTML a partir de uma URL, identifica se o código está bem formado e extrai o conteúdo de texto localizado no nível mais profundo da hierarquia de tags.
 
-Este projeto faz parte do meu portfólio para o Programa de Formação Direction Systems (2026).
+Este projeto faz parte do meu portfólio para a segunda etapa do nosso seletivo para o Programa de Formação de Desenvolvedores de Software Full Stack da Direction Systems.
 
 ## Tecnologias e Conceitos Utilizados
 Linguagem: Java 17+
